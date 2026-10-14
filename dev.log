@@ -1,0 +1,105 @@
+
+> yukta-nashik@0.1.0 dev
+> next dev
+
+[1m[38;2;173;127;168m▲ Next.js 16.3.5[39m[22m (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.2:3000
+- Environments: .env
+[32m[1m✓[22m[39m Ready in 672ms
+[32m[1m✓[22m[39m Running next.config.ts took 73ms
+[33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead.
+
+  To migrate automatically, run:
+  npx @next/codemod@canary middleware-to-proxy .
+
+  Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[33m[1m⚠[22m[39m Slow filesystem detected. The benchmark took 464ms. If \\?\E:\yukta-nashik\.next\dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m TypeError: (0 , __TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$i18next__$5b$external$5d$__$28$next$2d$i18next$2c$__esm_import$2c$__$5b$project$5d2f$node_modules$2f$next$2d$i18next$29$__.default) is not a function
+    at <unknown> (pages\_app.js:13:34)
+  [90m11 |[0m }
+  [90m12 |[0m
+[31m[1m>[0m [90m13 |[0m [36mexport[0m [36mdefault[0m appWithTranslation([33mMyApp[0m);
+  [90m   |[0m                                  [31m[1m^[0m
+ GET / [31m500[39m in 537ms[2m (next.js: -159.4ms, proxy.ts: 531ms, application-code: 166ms)[22m
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[36m[browser][39m [31mUncaught TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$i18next$2f$dist$2f$appRouter$2f$index$2e$mjs__$5b$client$5d$__$28$ecmascript$29$__.default) is not a function[39m
+[31m    at module evaluation (pages/_app.js:13:34)[39m
+  11 | }
+  12 |
+> 13 | export default appWithTranslation(MyApp);
+     |                                  ^
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+[36m[browser][39m ./pages/_app.js:2:1
+Error: Export default doesn't exist in target module
+  1 | // pages/_app.js
+> 2 | import appWithTranslation from 'next-i18next';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import ErrorBoundary from '../components/ErrorBoundary';
+  4 |
+  5 | function MyApp({ Component, pageProps }) {
+
+The export default was not found in module [project]/node_modules/next-i18next/dist/appRouter/index.mjs [client] (ecmascript).
+Did you mean to import defineConfig?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist. 
+[36m[browser][39m ./pages/_app.js:2:1
+Error: Export default doesn't exist in target module
+  1 | // pages/_app.js
+> 2 | import appWithTranslation from 'next-i18next';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import ErrorBoundary from '../components/ErrorBoundary';
+  4 |
+  5 | function MyApp({ Component, pageProps }) {
+
+The export default was not found in module [project]/node_modules/next-i18next/dist/appRouter/index.mjs [client] (ecmascript).
+Did you mean to import defineConfig?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist. 
+[31m[1m⨯[22m[39m [Error: The Middleware file "/middleware" must export a function named `middleware` or a default function.]
+ GET / [31m500[39m in 14ms[2m (next.js: -7.0ms, proxy.ts: 12ms, application-code: 8ms)[22m
+[36m[browser][39m ./pages/_app.js:2:1
+Error: Export default doesn't exist in target module
+  1 | // pages/_app.js
+> 2 | import appWithTranslation from 'next-i18next';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import ErrorBoundary from '../components/ErrorBoundary';
+  4 |
+  5 | function MyApp({ Component, pageProps }) {
+
+The export default was not found in module [project]/node_modules/next-i18next/dist/appRouter/index.mjs [client] (ecmascript).
+Did you mean to import defineConfig?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist. 
+[36m[browser][39m ./pages/_app.js:2:1
+Error: Export default doesn't exist in target module
+  1 | // pages/_app.js
+> 2 | import appWithTranslation from 'next-i18next';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import ErrorBoundary from '../components/ErrorBoundary';
+  4 |
+  5 | function MyApp({ Component, pageProps }) {
+
+The export default was not found in module [project]/node_modules/next-i18next/dist/appRouter/index.mjs [client] (ecmascript).
+Did you mean to import defineConfig?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist. 
+[?25h

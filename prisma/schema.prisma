@@ -1,0 +1,238 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  name          String?
+  passwordHash  String
+  role          Role     @default(STUDENT)
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  schoolId      String?   // For school admins to associate with a school
+  school        School?   @relation("SchoolAdmins", fields: [schoolId], references: [id])
+
+  // Relations
+  studentProfile StudentProfile?
+  teacherProfile TeacherProfile?
+  // Suggestions made by this user (as mentor)
+  suggestionsMade Suggestion[] @relation("SuggestionMentor")
+  // Suggestions received by this user (as student)
+  suggestionsReceived Suggestion[] @relation("SuggestionStudent")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  SCHOOL_ADMIN
+  PLATFORM_ADMIN
+  MENTOR
+  PARENT
+}
+
+model StudentProfile {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  grade     Int?
+  school    School?  @relation(fields: [schoolId], references: [id])
+  schoolId  String?
+  enrollments Enrollment[]
+  projects    Project[]
+  skillEvidence SkillEvidence[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TeacherProfile {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  school    School?  @relation(fields: [schoolId], references: [id])
+  schoolId  String?
+  classes   Class[]
+  // Challenges created by this teacher
+  challengesCreated Challenge[] @relation("TeacherChallenges")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model School {
+  id          String   @id @default(uuid())
+  name        String
+  address     String?
+  contactEmail String?
+  contactPhone String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Relations
+  students    StudentProfile[]
+  teachers    TeacherProfile[]
+  classes     Class[]
+  admins      User[]    @relation("SchoolAdmins")
+}
+
+model Class {
+  id        String   @id @default(uuid())
+  name      String   // e.g., "Grade 3 Section A"
+  grade     Int
+  school    School   @relation(fields: [schoolId], references: [id])
+  schoolId  String
+  teacher   TeacherProfile? @relation(fields: [teacherId], references: [id])
+  teacherId String?
+  students  Enrollment[]
+  // Challenges created for this class
+  challengesCreated Challenge[] @relation("ClassChallenges")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  student   StudentProfile @relation(fields: [studentId], references: [id])
+  studentId String
+  class     Class    @relation(fields: [classId], references: [id])
+  classId   String
+  enrolledAt DateTime @default(now())
+  // We can add status if needed (active, withdrawn, etc.)
+  @@unique([studentId, classId])
+}
+
+model Challenge {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  grade       Int?
+  subject     String?
+  // For teacher-created challenges specific to a class
+  classId     String?
+  class       Class?     @relation("ClassChallenges", fields: [classId], references: [id])
+  // For tracking which teacher created this challenge
+  teacherId   String?
+  teacher     TeacherProfile? @relation("TeacherChallenges", fields: [teacherId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Relations
+  projects    Project[]
+  skills      Skill[]   @relation("ChallengeSkills")
+  // Suggestions for this challenge (mentor-to-student)
+  suggestions Suggestion[] @relation("ChallengeSuggestions")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  student     StudentProfile @relation(fields: [studentId], references: [id])
+  studentId   String
+  challenge   Challenge?   @relation(fields: [challengeId], references: [id])
+  challengeId String?
+  status      ProjectStatus @default(LEARN)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Relations
+  iterations  ProjectIteration[]
+  reflections Reflection[]
+  evidence    SkillEvidence[]
+}
+
+enum ProjectStatus {
+  LEARN
+  INVESTIGATE
+  DESIGN
+  BUILD
+  TEST
+  FAIL
+  IMPROVE
+  EXPLAIN
+  REFLECT
+  EARN_SKILL_EVIDENCE
+}
+
+model ProjectIteration {
+  id        String   @id @default(uuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  // We can store the iteration details, like what was built, tested, etc.
+  details   String?
+  createdAt DateTime @default(now())
+}
+
+model Reflection {
+  id        String   @id @default(uuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  // We can have a list of skills that are targeted by challenges
+  // Relations
+  evidence    SkillEvidence[]
+  challenges  Challenge[] @relation("ChallengeSkills")
+}
+
+model SkillEvidence {
+  id            String   @id @default(uuid())
+  student       StudentProfile @relation(fields: [studentId], references: [id])
+  studentId     String
+  skill         Skill    @relation(fields: [skillId], references: [id])
+  skillId       String
+  project       Project? @relation(fields: [projectId], references: [id])
+  projectId     String?
+  // We can store the evidence details, like a description, URL to artifact, etc.
+  details       String?
+  // Verification status for teachers/mentors to approve/reject
+  verificationStatus VerificationStatus @default(PENDING)
+  // Level of proficiency demonstrated by this evidence
+  level         SkillLevel
+  createdAt     DateTime @default(now())
+}
+
+// Model for tracking mentor-to-student challenge suggestions
+model Suggestion {
+  id          String   @id @default(uuid())
+  mentor      User     @relation("SuggestionMentor", fields: [mentorId], references: [id])
+  mentorId    String
+  student     User?    @relation("SuggestionStudent", fields: [studentId], references: [id])
+  studentId   String?
+  challenge   Challenge @relation("ChallengeSuggestions", fields: [challengeId], references: [id])
+  challengeId String
+  // Optional message from mentor to student
+  message     String?
+  // Status of the suggestion
+  status      SuggestionStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum SuggestionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}

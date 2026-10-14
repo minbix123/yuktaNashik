@@ -1,0 +1,1 @@
+import { defineConfig } from 'prisma/orm-config'; export default defineConfig({ orm: { client: 'prisma-client-js' } });

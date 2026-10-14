@@ -1,0 +1,50 @@
+# Remaining Tasks for Yukta Nashik MVP
+
+Based on the original requirements and work completed so far, here are the remaining tasks to complete the Maharashtra-first experiential learning platform MVP:
+
+## CORE FEATURES
+- [ ] Implement bilingual support (English/Marathi) throughout the platform
+- [ ] Complete role-based access control for all roles:
+  - [ ] Parent dashboard and features
+  - [ ] Admin dashboard and features (school and platform level)
+  - [ ] Mentor dashboard and features
+- [ ] Complete the learning loop implementation in project workflow:
+  - [ ] Ensure all stages (LEARN → INVESTIGATE → DESIGN → BUILD → TEST → FAIL → IMPROVE → EXPLAIN → REFLECT → EARN SKILL EVIDENCE) are properly represented
+  - [ ] Implement skill evidence creation when completing projects/reflections
+- [ ] Integrate shadcn/ui components as specified in requirements
+
+## FRONTEND PAGES
+- [ ] Admin dashboard pages (school admin and platform admin)
+- [x] Role-specific challenge browsing/creation interfaces
+- [ ] Bilingual toggle component
+
+## API ROUTES
+- [ ] API routes for managing enrollments, classes, etc.
+
+## IMPROVEMENTS & POLISH
+- [ ] Add proper error handling and loading states to all pages
+- [ ] Implement form validation
+- [ ] Add accessibility features
+- [ ] Optimize performance
+- [ ] Add comprehensive testing
+- [ ] Deploy to production environment (PostgreSQL instead of SQLite)
+- [ ] Add environment configuration for different deployments
+
+## SPECIFIC TO LEARNING LOOP
+- [ ] Implement "EARN SKILL EVIDENCE" functionality - when students complete reflections or projects, automatically create skill evidence entries
+- [ ] Ensure skill evidence is properly linked to skills, projects, and challenges
+- [ ] Add ability for teachers/mentors to verify and approve skill evidence
+- [ ] Implement skill levels or progression system
+
+## Notes
+- The student profile API, skill passport page, skill evidence API, skills API, project detail API, and project workflow page have been completed
+- Authentication, layout, home dashboard, challenges features, and basic project APIs are in place
+- Parent dashboard page, mentor dashboard page, parent profile API, teacher profile API, mentor profile API, admin user management API, and school management API have been implemented
+- Focus next on bilingual support, admin dashboard pages, completing the learning loop implementation, and role-specific challenge interfaces
+
+## Last Updated
+- September 23, 2026: Updated remaining tasks based on codebase analysis
+- Completed: Parent/teacher/mentor APIs and dashboards, admin APIs, skill evidence system, role-specific challenge browsing/creation interfaces
+- Remaining: Bilingual support, admin dashboards, full learning loop implementation
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
